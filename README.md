@@ -1,4 +1,4 @@
-# Proyecto: Jmail Clone (Demo)
+# Proyecto: Jmail Clone (Beta)
 
 Este proyecto es una recreación tipo demo de una interfaz de correo electrónico estilo “Jmail”, creada únicamente con fines educativos y de aprendizaje.
 
