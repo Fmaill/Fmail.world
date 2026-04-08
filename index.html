@@ -13,7 +13,6 @@ body{
   color:#202124;
 }
 
-/* SIDEBAR */
 .sidebar{
   width:260px;
   height:100vh;
@@ -21,7 +20,6 @@ body{
   padding:10px;
 }
 
-/* ICONOS */
 .icon{
   width:20px;
   height:20px;
@@ -29,7 +27,6 @@ body{
   fill:none;
 }
 
-/* COMPOSE */
 .compose{
   background:#e8f0fe;
   padding:12px;
@@ -39,11 +36,8 @@ body{
   gap:10px;
   cursor:pointer;
   margin-bottom:15px;
-  transition:0.2s;
 }
-.compose:hover{ transform:scale(1.05); }
 
-/* ITEMS */
 .item{
   display:flex;
   align-items:center;
@@ -67,7 +61,6 @@ body{
   border-radius:10px;
 }
 
-/* SEARCH BONITA */
 .search-box{
   margin:15px;
   border-radius:999px;
@@ -77,20 +70,15 @@ body{
   gap:10px;
   background:#f1f3f4;
   box-shadow:0 1px 3px rgba(0,0,0,0.1);
-  transition:0.2s;
 }
+
 .search-box input{
   border:none;
   background:transparent;
   width:100%;
   outline:none;
 }
-.search-box:focus-within{
-  transform:scale(1.02);
-  box-shadow:0 2px 8px rgba(0,0,0,0.2);
-}
 
-/* EMAIL */
 .email{
   display:flex;
   align-items:center;
@@ -105,16 +93,13 @@ body{
 .sender{ width:150px; font-weight:bold; }
 .subject{ flex:1; }
 
-/* CONTENT */
 .content{
   padding:20px;
   animation:fade 0.3s;
 }
 
-/* BACK */
 .back{ cursor:pointer; margin-bottom:10px; }
 
-/* PEOPLE */
 .section-title{
   display:flex;
   align-items:center;
@@ -124,7 +109,6 @@ body{
   margin-top:10px;
 }
 
-/* MODAL TERMINOS */
 .modal{
   position:fixed;
   top:0; left:0;
@@ -150,11 +134,8 @@ body{
   border-radius:20px;
   background:#e8f0fe;
   cursor:pointer;
-  transition:0.2s;
 }
-.btn:hover{ transform:scale(1.05); }
 
-/* ANIM */
 @keyframes fade{
   from{opacity:0; transform:translateX(20px);}
   to{opacity:1;}
@@ -177,53 +158,27 @@ body{
 <!-- SIDEBAR -->
 <div class="sidebar">
 
-  <div class="compose">
-    <svg class="icon" viewBox="0 0 24 24">
-      <path d="M3 17.25V21h3.75L19.81 7.94l-3.75-3.75Z" stroke-width="2"/>
-    </svg>
-    Compose
-  </div>
+  <div class="compose">Compose</div>
 
   <div class="item" onclick="irInbox()">
-    <div class="label">
-      <svg class="icon" viewBox="0 0 24 24">
-        <rect x="3" y="4" width="18" height="14" rx="2" stroke-width="2"/>
-      </svg>
-      Inbox
-    </div>
+    <div class="label">Inbox</div>
     <div class="count" id="countInbox"></div>
   </div>
 
   <div class="item" onclick="cambiarVista('starred')">
-    <div class="label">
-      <svg class="icon" viewBox="0 0 24 24">
-        <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" stroke-width="2"/>
-      </svg>
-      Starred
-    </div>
+    <div class="label">Starred</div>
     <div class="count" id="countStar"></div>
   </div>
 
   <div class="item" onclick="cambiarVista('attachments')">
-    <div class="label">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M21 12.5V7a5 5 0 0 0-10 0v10a3 3 0 0 0 6 0V8" stroke-width="2"/>
-      </svg>
-      Attachments
-    </div>
+    <div class="label">Attachments</div>
     <div class="count" id="countAttach"></div>
   </div>
 
-  <div class="section-title" onclick="togglePeople()">
-    <svg class="icon" id="arrow" viewBox="0 0 24 24">
-      <polyline points="6,9 12,15 18,9" stroke-width="2"/>
-    </svg>
-    PEOPLE
-  </div>
+  <div class="section-title" onclick="togglePeople()">▼ PEOPLE</div>
 
   <div id="people">
-    <div class="item" onclick="filtrarPersona('Juliana Gutierrez')">Juliana Gutierrez</div>
-    <div class="item" onclick="filtrarPersona('Karen Torres')">Karen Torres</div>
+    <div class="item" onclick="filtrarPersona('fede_zulu')">fede_zulu</div>
   </div>
 
 </div>
@@ -232,10 +187,6 @@ body{
 <div style="flex:1">
 
   <div class="search-box">
-    <svg class="icon" viewBox="0 0 24 24">
-      <circle cx="11" cy="11" r="7" stroke-width="2"/>
-      <line x1="16" y1="16" x2="21" y2="21" stroke-width="2"/>
-    </svg>
     <input oninput="buscar(this.value)" placeholder="Buscar en Fmail">
   </div>
 
@@ -249,81 +200,78 @@ let vista="inbox";
 let filtroPersona=null;
 
 let EMAILS=[
- let EMAILS=[
-  {
-    sender:"fede_zulu",
-    subject:"Compartido Free Fire",
-    content:`Exposición sobre un video de Free Fire compartido en TikTok.
+{
+sender:"fede_zulu",
+subject:"Compartido Free Fire",
+content:`Exposición sobre un video de Free Fire compartido en TikTok.
 
-El 26 de noviembre de 2025, se compartió un video relacionado con Free Fire en TikTok. 
-El video muestra una sandía cortada con un cuchillo y un texto llamativo sobre el juego, 
-siguiendo un estilo típico de contenido viral dentro de la plataforma.
+El 26 de noviembre de 2025 se compartió un video relacionado con Free Fire. 
+El contenido muestra elementos típicos de videos virales, como texto llamativo, 
+formato visual sencillo y una estructura diseñada para generar interacción.
 
-El clip incluye elementos comunes como interfaz de TikTok, número de likes, comentarios 
-y guardados, además de un formato visual que suele usarse para generar interacción.
+Este tipo de publicaciones son comunes dentro de redes sociales como TikTok, 
+donde los usuarios comparten contenido que aparece en su algoritmo.
 
-Este tipo de contenido es frecuente en redes sociales, donde muchas personas comparten 
-videos que aparecen en su algoritmo, sin necesariamente estar relacionados directamente 
-con su experiencia personal.
-
-En resumen, el caso muestra cómo funcionan las tendencias en redes sociales y cómo los 
-usuarios interactúan con contenido viral.`,
-    star:true,
-    files:[]
-  }
+En resumen, este caso refleja cómo funcionan las tendencias virales y la forma 
+en que las personas interactúan con contenido popular en internet.`,
+star:true,
+files:[]
+}
 ];
-  countInbox.textContent=EMAILS.length;
-  countStar.textContent=EMAILS.filter(e=>e.star).length;
-  countAttach.textContent=EMAILS.filter(e=>e.files.length).length;
+
+function updateCounts(){
+countInbox.textContent=EMAILS.length;
+countStar.textContent=EMAILS.filter(e=>e.star).length;
+countAttach.textContent=EMAILS.filter(e=>e.files.length).length;
 }
 
 function getLista(){
-  let l=EMAILS;
-  if(vista==="starred") l=l.filter(e=>e.star);
-  if(vista==="attachments") l=l.filter(e=>e.files.length);
-  if(filtroPersona) l=l.filter(e=>e.sender===filtroPersona);
-  return l;
+let l=EMAILS;
+if(vista==="starred") l=l.filter(e=>e.star);
+if(vista==="attachments") l=l.filter(e=>e.files.length);
+if(filtroPersona) l=l.filter(e=>e.sender===filtroPersona);
+return l;
 }
 
 function render(){
-  contenido.innerHTML="";
-  let l=getLista();
-  emails.innerHTML=l.map((e,i)=>`
-    <div class="email" onclick="ver(${i})">
-      <input type="checkbox">
-      <span class="star" onclick="event.stopPropagation();toggleStar(${i})">${e.star?"★":"☆"}</span>
-      <div class="sender">${e.sender}</div>
-      <div class="subject">${e.subject}</div>
-    </div>
-  `).join("");
-  updateCounts();
+contenido.innerHTML="";
+let l=getLista();
+emails.innerHTML=l.map((e,i)=>`
+<div class="email" onclick="ver(${i})">
+<input type="checkbox">
+<span class="star" onclick="event.stopPropagation();toggleStar(${i})">${e.star?"★":"☆"}</span>
+<div class="sender">${e.sender}</div>
+<div class="subject">${e.subject}</div>
+</div>
+`).join("");
+updateCounts();
 }
 
 function ver(i){
-  let e=getLista()[i];
-  emails.innerHTML="";
-  contenido.innerHTML=`
-    <div class="back" onclick="render()">← Volver</div>
-    <h3>${e.subject}</h3>
-    <p>${e.content}</p>
-  `;
+let e=getLista()[i];
+emails.innerHTML="";
+contenido.innerHTML=`
+<div class="back" onclick="render()">← Volver</div>
+<h3>${e.subject}</h3>
+<p>${e.content}</p>
+`;
 }
 
 function toggleStar(i){
-  let l=getLista();
-  l[i].star=!l[i].star;
-  render();
+let l=getLista();
+l[i].star=!l[i].star;
+render();
 }
 
 function buscar(t){
-  t=t.toLowerCase();
-  let l=getLista().filter(e=>e.sender.toLowerCase().includes(t)||e.subject.toLowerCase().includes(t));
-  emails.innerHTML=l.map((e,i)=>`
-    <div class="email" onclick="ver(${i})">
-      <div class="sender">${e.sender}</div>
-      <div class="subject">${e.subject}</div>
-    </div>
-  `).join("");
+t=t.toLowerCase();
+let l=getLista().filter(e=>e.sender.toLowerCase().includes(t)||e.subject.toLowerCase().includes(t));
+emails.innerHTML=l.map((e,i)=>`
+<div class="email" onclick="ver(${i})">
+<div class="sender">${e.sender}</div>
+<div class="subject">${e.subject}</div>
+</div>
+`).join("");
 }
 
 function filtrarPersona(n){ filtroPersona=n; render(); }
@@ -331,15 +279,8 @@ function cambiarVista(v){ vista=v; filtroPersona=null; render(); }
 function irInbox(){ vista="inbox"; filtroPersona=null; render(); }
 
 function togglePeople(){
-  let p=document.getElementById("people");
-  let a=document.getElementById("arrow");
-  if(p.style.display==="none"){
-    p.style.display="block";
-    a.style.transform="rotate(0deg)";
-  } else {
-    p.style.display="none";
-    a.style.transform="rotate(-90deg)";
-  }
+let p=document.getElementById("people");
+p.style.display = p.style.display==="none" ? "block":"none";
 }
 
 function cerrar(){ modal.style.display="none"; }
