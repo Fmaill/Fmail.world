@@ -202,23 +202,40 @@ body{
 let vista = "inbox";
 let filtroPersona = null;
 
+const countInbox = document.getElementById("countInbox");
+const countStar = document.getElementById("countStar");
+const countAttach = document.getElementById("countAttach");
+const emails = document.getElementById("emails");
+const contenido = document.getElementById("contenido");
+
 let EMAILS = [
   {
     sender: "fede_zulu",
-    subject: "Compartido Free Fire",
-    content: `El 26 de noviembre de 2025 se compartió un video relacionado con Free Fire en TikTok.<br><br>
-El video incluye elementos típicos de contenido viral como texto llamativo, edición simple y una estructura pensada para generar interacción.<br><br>
-También muestra estadísticas visibles como likes, comentarios y guardados.<br><br>
-Este caso sirve como ejemplo de cómo funcionan las tendencias en redes sociales y cómo los usuarios comparten contenido que aparece en su algoritmo.`,
+    subject: "Exposición sobre Federico Zulu y el video de Free Fire que compartió",
+    content: `El 26 de noviembre de 2025, Federico Zulu (conocido como fede_zulu en TikTok) compartió un video en su cuenta. 
+El video aparece en una búsqueda de “Tiktok de Free Fire” y muestra una sandía cortada con un cuchillo, con el texto grande que dice: “LOS QUE JUEGAN FREE FIRE ASEN MAS DE 300”. 
+El clip tiene fondo de piso sucio, se ve un pie con zapatilla y la interfaz típica de TikTok con 14.8 mil likes, 194 comentarios y 268 guardados. 
+Abajo aparece claramente “Compartido por fede_zulu”.
+
+Lo más importante y revelador es esto: Federico nunca ha jugado Free Fire en su vida. No ha jugado ni una sola partida, ni ha descargado el juego, ni ha tenido ningún contacto con él. Nunca.
+
+A pesar de eso, decidió compartir un video que celebra a “los que juegan Free Fire” como si fueran mejores o más hábiles, usando la sandía apuñalada como símbolo de “hacer más de 300”. 
+Es un filtro típico de TikTok, de esos efectos virales con texto gótico y música de fondo, pero compartido por alguien que no forma parte de esa cultura.
+
+Esto deja clara una contradicción: Federico no es jugador de Free Fire, pero publica contenido como si lo fuera o como si apoyara esa escena. 
+Es una forma de fingir pertenencia a algo que no vive. El video no refleja ninguna experiencia real suya, solo un contenido que probablemente vio en el algoritmo y decidió compartir para ganar likes o visibilidad.
+
+En resumen, el caso de Federico Zulu es un ejemplo claro de cómo muchas personas en redes sociales comparten cosas que no tienen nada que ver con su vida real. 
+Compartió un filtro de TikTok sobre Free Fire sin nunca haber jugado el juego. Eso es todo.`,
     star: true,
     files: []
   }
 ];
 
 function updateCounts(){
-  document.getElementById('countInbox').textContent = EMAILS.length;
-  document.getElementById('countStar').textContent = EMAILS.filter(e => e.star).length;
-  document.getElementById('countAttach').textContent = EMAILS.filter(e => e.files.length).length;
+  countInbox.textContent = EMAILS.length;
+  countStar.textContent = EMAILS.filter(e => e.star).length;
+  countAttach.textContent = EMAILS.filter(e => e.files.length).length;
 }
 
 function getLista(){
@@ -230,9 +247,9 @@ function getLista(){
 }
 
 function render(){
-  document.getElementById('contenido').innerHTML = "";
+  contenido.innerHTML = "";
   let l = getLista();
-  document.getElementById('emails').innerHTML = l.map((e, i) => `
+  emails.innerHTML = l.map((e,i) => `
     <div class="email" onclick="ver(${i})">
       <input type="checkbox">
       <span class="star" onclick="event.stopPropagation();toggleStar(${i})">${e.star ? "★" : "☆"}</span>
@@ -245,8 +262,8 @@ function render(){
 
 function ver(i){
   let e = getLista()[i];
-  document.getElementById('emails').innerHTML = "";
-  document.getElementById('contenido').innerHTML = `
+  emails.innerHTML = "";
+  contenido.innerHTML = `
     <div class="back" onclick="render()">← Volver</div>
     <h3>${e.subject}</h3>
     <p>${e.content}</p>
@@ -265,7 +282,7 @@ function buscar(t){
     e.sender.toLowerCase().includes(t) || 
     e.subject.toLowerCase().includes(t)
   );
-  document.getElementById('emails').innerHTML = l.map((e,i) => `
+  emails.innerHTML = l.map((e,i) => `
     <div class="email" onclick="ver(${i})">
       <div class="sender">${e.sender}</div>
       <div class="subject">${e.subject}</div>
@@ -273,22 +290,9 @@ function buscar(t){
   `).join("");
 }
 
-function filtrarPersona(n){ 
-  filtroPersona = n; 
-  render(); 
-}
-
-function cambiarVista(v){ 
-  vista = v; 
-  filtroPersona = null; 
-  render(); 
-}
-
-function irInbox(){ 
-  vista = "inbox"; 
-  filtroPersona = null; 
-  render(); 
-}
+function filtrarPersona(n){ filtroPersona = n; render(); }
+function cambiarVista(v){ vista = v; filtroPersona = null; render(); }
+function irInbox(){ vista = "inbox"; filtroPersona = null; render(); }
 
 function togglePeople(){
   let p = document.getElementById("people");
@@ -296,7 +300,7 @@ function togglePeople(){
   if(p.style.display === "none"){
     p.style.display = "block";
     a.style.transform = "rotate(0deg)";
-  }else{
+  } else {
     p.style.display = "none";
     a.style.transform = "rotate(-90deg)";
   }
@@ -306,7 +310,6 @@ function cerrar(){
   document.getElementById("modal").style.display = "none";
 }
 
-// Iniciar
 render();
 </script>
 </body>
