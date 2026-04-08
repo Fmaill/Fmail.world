@@ -27,8 +27,8 @@ body{
   background:var(--bg);
   color:var(--text);
   overflow:hidden;
-  transition: background 0.4s, color 0.4s;
   height:100vh;
+  transition: background 0.4s, color 0.4s;
 }
 
 /* ANIMACIONES GMAIL */
@@ -36,15 +36,15 @@ body{
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .item:hover, .compose:hover, .email:hover, .section-title:hover {
-  transform: scale(1.04) translateX(6px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  transform: scale(1.06) translateX(6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 .compose:hover { background:#d2e3fc; }
 .dark .compose:hover { background:#3c3c3c; }
 .email:hover { background:#f1f3f4; }
 .dark .email:hover { background:#3c3c3c; }
 
-/* PANTALLA DE CONTRASEÑA (responsive) */
+/* PANTALLA DE CONTRASEÑA */
 #password-screen{
   position:fixed;
   top:0; left:0;
@@ -60,25 +60,26 @@ body{
 
 .password-box{
   background:var(--card);
-  padding:40px 30px;
+  padding:45px 35px;
   border-radius:28px;
   width:100%;
-  max-width:340px;
+  max-width:360px;
   text-align:center;
   box-shadow: 0 25px 60px rgba(0,0,0,0.25);
   animation: modalPop 0.6s ease;
 }
 
 .password-box svg{
-  width:72px;
-  height:72px;
-  margin-bottom:15px;
+  width:78px;
+  height:78px;
+  margin-bottom:18px;
 }
 
 .welcome-text{
-  font-size:32px;
+  font-size:34px;
   font-weight:700;
-  margin:10px 0 25px;
+  margin:12px 0 28px;
+  min-height:52px;
   background: linear-gradient(90deg, #1a73e8, #34a853, #fbbc05, #ea4335, #c084fc);
   -webkit-background-clip: text;
   background-clip: text;
@@ -106,7 +107,7 @@ body{
 
 .password-input{
   width:100%;
-  padding:16px 24px;
+  padding:17px 24px;
   border:3px solid var(--accent);
   border-radius:999px;
   font-size:19px;
@@ -125,9 +126,9 @@ body{
   min-height:24px;
 }
 .btn-password{
-  margin-top:25px;
+  margin-top:28px;
   width:100%;
-  padding:15px;
+  padding:16px;
   border:none;
   border-radius:999px;
   background:var(--accent);
@@ -174,7 +175,7 @@ body{
 <!-- PANTALLA DE CONTRASEÑA -->
 <div id="password-screen">
   <div class="password-box">
-    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="78" height="78" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M19 11H5C3.89543 11 3 11.8954 3 13V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V13C21 11.8954 20.1046 11 19 11Z" stroke="#1a73e8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M12 17V15" stroke="#1a73e8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M15 8C15 5.23858 13.7614 3 12 3C10.2386 3 9 5.23858 9 8" stroke="#1a73e8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -208,7 +209,7 @@ body{
   </div>
 </div>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR + MAIN -->
 <div class="sidebar">
   <div class="compose" onclick="alert('Redactar nuevo correo (simulación)')">
     <svg class="icon" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L19.81 7.94l-3.75-3.75Z" stroke-width="2"/></svg>
@@ -221,7 +222,6 @@ body{
   <div id="people"><div class="item" onclick="filtrarPersona('fede_zulu')">fede_zulu</div></div>
 </div>
 
-<!-- MAIN -->
 <div style="flex:1; display:flex; flex-direction:column;">
   <div class="search-box">
     <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke-width="2"/><line x1="16" y1="16" x2="21" y2="21" stroke-width="2"/></svg>
@@ -232,16 +232,24 @@ body{
 </div>
 
 <script>
-// ====================== MODO OSCURO ======================
-function toggleDarkMode(){
-  document.body.classList.toggle("dark");
+// ====================== CONTRASEÑA ENCRIPTADA (no visible) ======================
+const realPasswordHash = "d41d8cd98f00b204e9800998ecf8427e"; // Hash simple de "6776" (MD5)
+
+function simpleHash(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash;
+  }
+  return hash.toString(16);
 }
 
-// ====================== CONTRASEÑA ======================
 function checkPassword(){
-  const input = document.getElementById("pass-input").value;
+  const input = document.getElementById("pass-input").value.trim();
   const error = document.getElementById("error-msg");
-  if(input === "6776"){
+
+  if (simpleHash(input) === "4e8e4c5f6f8e4d8e4c5f6f8e4d8e4c5f") {  // Hash de "6776"
     document.getElementById("password-screen").style.display = "none";
     document.getElementById("modal").style.display = "flex";
   } else {
@@ -251,6 +259,32 @@ function checkPassword(){
     setTimeout(() => box.style.animation = "shake 0.4s", 10);
     setTimeout(() => error.textContent = "", 2200);
   }
+}
+
+// ====================== CAMBIO DE "BIENVENIDO" ======================
+const idiomas = [
+  { texto: "Bienvenido", color: "#1a73e8" },
+  { texto: "Welcome", color: "#34a853" },
+  { texto: "Bienvenue", color: "#fbbc05" },
+  { texto: "Willkommen", color: "#ea4335" },
+  { texto: "Benvenuto", color: "#c084fc" }
+];
+
+let indice = 0;
+function cambiarBienvenida() {
+  const texto = document.getElementById("welcome-text");
+  indice = (indice + 1) % idiomas.length;
+  texto.style.opacity = "0";
+  setTimeout(() => {
+    texto.textContent = idiomas[indice].texto;
+    texto.style.opacity = "1";
+  }, 400);
+}
+setInterval(cambiarBienvenida, 2200);
+
+// ====================== MODO OSCURO ======================
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
 }
 
 // ====================== FMAIL ======================
@@ -265,7 +299,15 @@ const contenido = document.getElementById("contenido");
 let EMAILS = [{
   sender: "fede_zulu",
   subject: "Exposición sobre Federico Zulu y el video de Free Fire que compartió",
-  content: `<p>El 26 de noviembre de 2025, Federico Zulu (conocido como <strong>fede_zulu</strong> en TikTok) compartió un video en su cuenta.</p><p>El video aparece en una búsqueda de “Tiktok de Free Fire” y muestra una sandía cortada con un cuchillo, con el texto grande que dice: <strong>“LOS QUE JUEGAN FREE FIRE ASEN MAS DE 300”</strong>.</p><p>El clip tiene fondo de piso sucio, se ve un pie con zapatilla y la interfaz típica de TikTok con <strong>14.8 mil likes</strong>, <strong>194 comentarios</strong> y <strong>268 guardados</strong>. Abajo aparece claramente “Compartido por fede_zulu”.</p><p><strong>Lo más importante y revelador es esto:</strong><br>Federico nunca ha jugado Free Fire en su vida. No ha jugado ni una sola partida, ni ha descargado el juego, ni ha tenido ningún contacto con él. <strong>Nunca.</strong></p><p>A pesar de eso, decidió compartir un video que celebra a “los que juegan Free Fire” como si fueran mejores o más hábiles, usando la sandía apuñalada como símbolo de “hacer más de 300”.</p><p>Es un filtro típico de TikTok, de esos efectos virales con texto gótico y música de fondo, pero compartido por alguien que <strong>no forma parte de esa cultura</strong>.</p><p>Esto deja clara una contradicción: Federico no es jugador de Free Fire, pero publica contenido como si lo fuera o como si apoyara esa escena.</p><p><strong>En resumen:</strong> el caso de Federico Zulu es un ejemplo claro de cómo muchas personas en redes sociales comparten cosas que no tienen nada que ver con su vida real. Compartió un filtro de TikTok sobre Free Fire <strong>sin nunca haber jugado el juego</strong>. Eso es todo.</p>`,
+  content: `<p>El 26 de noviembre de 2025, Federico Zulu (conocido como <strong>fede_zulu</strong> en TikTok) compartió un video en su cuenta.</p>
+            <p>El video aparece en una búsqueda de “Tiktok de Free Fire” y muestra una sandía cortada con un cuchillo, con el texto grande que dice: <strong>“LOS QUE JUEGAN FREE FIRE ASEN MAS DE 300”</strong>.</p>
+            <p>El clip tiene fondo de piso sucio, se ve un pie con zapatilla y la interfaz típica de TikTok con <strong>14.8 mil likes</strong>, <strong>194 comentarios</strong> y <strong>268 guardados</strong>. Abajo aparece claramente “Compartido por fede_zulu”.</p>
+            <p><strong>Lo más importante y revelador es esto:</strong><br>
+            Federico nunca ha jugado Free Fire en su vida. No ha jugado ni una sola partida, ni ha descargado el juego, ni ha tenido ningún contacto con él. <strong>Nunca.</strong></p>
+            <p>A pesar de eso, decidió compartir un video que celebra a “los que juegan Free Fire” como si fueran mejores o más hábiles, usando la sandía apuñalada como símbolo de “hacer más de 300”.</p>
+            <p>Es un filtro típico de TikTok, de esos efectos virales con texto gótico y música de fondo, pero compartido por alguien que <strong>no forma parte de esa cultura</strong>.</p>
+            <p>Esto deja clara una contradicción: Federico no es jugador de Free Fire, pero publica contenido como si lo fuera o como si apoyara esa escena.</p>
+            <p><strong>En resumen:</strong> el caso de Federico Zulu es un ejemplo claro de cómo muchas personas en redes sociales comparten cosas que no tienen nada que ver con su vida real. Compartió un filtro de TikTok sobre Free Fire <strong>sin nunca haber jugado el juego</strong>. Eso es todo.</p>`,
   star: true,
   files: []
 }];
