@@ -10,14 +10,18 @@ body{
   display:flex;
   background:#f6f8fc;
   color:#202124;
+  overflow:hidden;
 }
+
 /* SIDEBAR */
 .sidebar{
   width:260px;
   height:100vh;
   background:#f1f3f4;
   padding:10px;
+  overflow-y:auto;
 }
+
 /* SVG ICONOS */
 .icon{
   width:20px;
@@ -25,6 +29,7 @@ body{
   stroke:#202124;
   fill:none;
 }
+
 /* COMPOSE */
 .compose{
   background:#e8f0fe;
@@ -35,7 +40,14 @@ body{
   gap:10px;
   cursor:pointer;
   margin-bottom:15px;
+  transition: all 0.2s ease;
 }
+.compose:hover{
+  background:#d2e3fc;
+  transform: scale(1.03);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
 /* ITEMS */
 .item{
   display:flex;
@@ -44,20 +56,33 @@ body{
   padding:10px;
   border-radius:20px;
   cursor:pointer;
+  transition: all 0.2s ease;
 }
-.item:hover{ background:#e8eaed; }
+.item:hover{ 
+  background:#e8eaed; 
+  transform: translateX(4px);
+}
+.item:active{
+  transform: scale(0.97);
+}
+
+/* LABEL */
 .label{
   display:flex;
   align-items:center;
   gap:10px;
 }
+
+/* COUNT */
 .count{
   font-size:12px;
   background:#dadce0;
   padding:3px 8px;
   border-radius:10px;
+  transition: all 0.2s ease;
 }
-/* SEARCH */
+
+/* SEARCH - CLEAN */
 .search-box{
   margin:15px;
   border-radius:999px;
@@ -66,13 +91,20 @@ body{
   align-items:center;
   gap:10px;
   background:#f1f3f4;
+  transition: all 0.2s ease;
+}
+.search-box:focus-within{
+  background:white;
+  box-shadow: 0 1px 6px rgba(32,33,36,0.28);
 }
 .search-box input{
   border:none;
   background:transparent;
   width:100%;
   outline:none;
+  font-size:15px;
 }
+
 /* EMAIL */
 .email{
   display:flex;
@@ -81,26 +113,32 @@ body{
   background:white;
   border-bottom:1px solid #eee;
   cursor:pointer;
+  transition: all 0.15s ease;
 }
-.email:hover{ background:#f1f3f4; }
-.star{ margin:0 10px; cursor:pointer; }
-.sender{ width:150px; font-weight:bold; }
-.subject{ flex:1; }
-/* CONTENT */
-.content{
-  padding:20px;
+.email:hover{ 
+  background:#f1f3f4; 
+  transform: translateX(4px);
 }
-/* BACK */
-.back{ cursor:pointer; margin-bottom:10px; }
-/* PEOPLE */
-.section-title{
-  display:flex;
-  align-items:center;
-  gap:5px;
+
+/* BOTONES */
+.btn{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#e8f0fe;
   cursor:pointer;
-  font-size:12px;
-  margin-top:10px;
+  transition: all 0.2s ease;
+  font-weight:500;
 }
+.btn:hover{
+  background:#d2e3fc;
+  transform: scale(1.05);
+}
+.btn:active{
+  transform: scale(0.95);
+}
+
 /* MODAL */
 .modal{
   position:fixed;
@@ -110,25 +148,77 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+  z-index:1000;
+  opacity:1;
+  transition: opacity 0.3s ease;
 }
 .box{
   background:white;
-  padding:20px;
+  padding:25px;
   border-radius:15px;
-  width:320px;
+  width:340px;
   text-align:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  animation: modalPop 0.3s ease;
 }
-.btn{
-  margin-top:15px;
-  padding:10px 20px;
-  border:none;
+@keyframes modalPop {
+  from { transform: scale(0.7); opacity:0; }
+  to { transform: scale(1); opacity:1; }
+}
+
+/* CONTENT - TEXTO ORGANIZADO */
+.content{
+  padding:20px;
+  overflow-y:auto;
+  height: calc(100vh - 80px);
+  line-height:1.6;
+}
+.content h3{
+  margin-bottom:20px;
+  color:#1a73e8;
+}
+.content p{
+  margin-bottom:18px;
+}
+.content strong{
+  color:#202124;
+  font-weight:700;
+}
+
+/* BACK */
+.back{ 
+  cursor:pointer; 
+  margin-bottom:15px; 
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:6px 12px;
   border-radius:20px;
-  background:#e8f0fe;
+  transition: all 0.2s ease;
+}
+.back:hover{
+  background:#e8eaed;
+}
+
+/* PEOPLE */
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:5px;
   cursor:pointer;
+  font-size:12px;
+  margin-top:10px;
+  padding:8px 10px;
+  border-radius:20px;
+  transition: all 0.2s ease;
+}
+.section-title:hover{
+  background:#e8eaed;
 }
 </style>
 </head>
 <body>
+
 <!-- TERMINOS -->
 <div class="modal" id="modal">
   <div class="box">
@@ -141,12 +231,13 @@ body{
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-  <div class="compose">
+  <div class="compose" onclick="alert('Redactar nuevo correo (simulación)')">
     <svg class="icon" viewBox="0 0 24 24">
       <path d="M3 17.25V21h3.75L19.81 7.94l-3.75-3.75Z" stroke-width="2"/>
     </svg>
     Compose
   </div>
+
   <div class="item" onclick="irInbox()">
     <div class="label">
       <svg class="icon" viewBox="0 0 24 24">
@@ -156,6 +247,7 @@ body{
     </div>
     <div class="count" id="countInbox"></div>
   </div>
+
   <div class="item" onclick="cambiarVista('starred')">
     <div class="label">
       <svg class="icon" viewBox="0 0 24 24">
@@ -165,6 +257,7 @@ body{
     </div>
     <div class="count" id="countStar"></div>
   </div>
+
   <div class="item" onclick="cambiarVista('attachments')">
     <div class="label">
       <svg class="icon" viewBox="0 0 24 24">
@@ -174,6 +267,7 @@ body{
     </div>
     <div class="count" id="countAttach"></div>
   </div>
+
   <div class="section-title" onclick="togglePeople()">
     <svg class="icon" id="arrow" viewBox="0 0 24 24">
       <polyline points="6,9 12,15 18,9" stroke-width="2"/>
@@ -186,15 +280,16 @@ body{
 </div>
 
 <!-- MAIN -->
-<div style="flex:1">
+<div style="flex:1; display:flex; flex-direction:column;">
   <div class="search-box">
     <svg class="icon" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="7" stroke-width="2"/>
       <line x1="16" y1="16" x2="21" y2="21" stroke-width="2"/>
     </svg>
-    <input oninput="buscar(this.value)" placeholder="Buscar en Fmail">
+    <input oninput="buscar(this.value)" placeholder="">
   </div>
-  <div id="emails"></div>
+
+  <div id="emails" style="flex:1; overflow-y:auto;"></div>
   <div id="contenido" class="content"></div>
 </div>
 
@@ -205,28 +300,31 @@ let filtroPersona = null;
 const countInbox = document.getElementById("countInbox");
 const countStar = document.getElementById("countStar");
 const countAttach = document.getElementById("countAttach");
-const emails = document.getElementById("emails");
+const emailsContainer = document.getElementById("emails");
 const contenido = document.getElementById("contenido");
 
 let EMAILS = [
   {
     sender: "fede_zulu",
     subject: "Exposición sobre Federico Zulu y el video de Free Fire que compartió",
-    content: `El 26 de noviembre de 2025, Federico Zulu (conocido como fede_zulu en TikTok) compartió un video en su cuenta. 
-El video aparece en una búsqueda de “Tiktok de Free Fire” y muestra una sandía cortada con un cuchillo, con el texto grande que dice: “LOS QUE JUEGAN FREE FIRE ASEN MAS DE 300”. 
-El clip tiene fondo de piso sucio, se ve un pie con zapatilla y la interfaz típica de TikTok con 14.8 mil likes, 194 comentarios y 268 guardados. 
-Abajo aparece claramente “Compartido por fede_zulu”.
-
-Lo más importante y revelador es esto: Federico nunca ha jugado Free Fire en su vida. No ha jugado ni una sola partida, ni ha descargado el juego, ni ha tenido ningún contacto con él. Nunca.
-
-A pesar de eso, decidió compartir un video que celebra a “los que juegan Free Fire” como si fueran mejores o más hábiles, usando la sandía apuñalada como símbolo de “hacer más de 300”. 
-Es un filtro típico de TikTok, de esos efectos virales con texto gótico y música de fondo, pero compartido por alguien que no forma parte de esa cultura.
-
-Esto deja clara una contradicción: Federico no es jugador de Free Fire, pero publica contenido como si lo fuera o como si apoyara esa escena. 
-Es una forma de fingir pertenencia a algo que no vive. El video no refleja ninguna experiencia real suya, solo un contenido que probablemente vio en el algoritmo y decidió compartir para ganar likes o visibilidad.
-
-En resumen, el caso de Federico Zulu es un ejemplo claro de cómo muchas personas en redes sociales comparten cosas que no tienen nada que ver con su vida real. 
-Compartió un filtro de TikTok sobre Free Fire sin nunca haber jugado el juego. Eso es todo.`,
+    content: `
+      <p>El 26 de noviembre de 2025, Federico Zulu (conocido como <strong>fede_zulu</strong> en TikTok) compartió un video en su cuenta.</p>
+      
+      <p>El video aparece en una búsqueda de “Tiktok de Free Fire” y muestra una sandía cortada con un cuchillo, con el texto grande que dice: <strong>“LOS QUE JUEGAN FREE FIRE ASEN MAS DE 300”</strong>.</p>
+      
+      <p>El clip tiene fondo de piso sucio, se ve un pie con zapatilla y la interfaz típica de TikTok con <strong>14.8 mil likes</strong>, <strong>194 comentarios</strong> y <strong>268 guardados</strong>. Abajo aparece claramente “Compartido por fede_zulu”.</p>
+      
+      <p><strong>Lo más importante y revelador es esto:</strong><br>
+      Federico nunca ha jugado Free Fire en su vida. No ha jugado ni una sola partida, ni ha descargado el juego, ni ha tenido ningún contacto con él. <strong>Nunca.</strong></p>
+      
+      <p>A pesar de eso, decidió compartir un video que celebra a “los que juegan Free Fire” como si fueran mejores o más hábiles, usando la sandía apuñalada como símbolo de “hacer más de 300”.</p>
+      
+      <p>Es un filtro típico de TikTok, de esos efectos virales con texto gótico y música de fondo, pero compartido por alguien que <strong>no forma parte de esa cultura</strong>.</p>
+      
+      <p>Esto deja clara una contradicción: Federico no es jugador de Free Fire, pero publica contenido como si lo fuera o como si apoyara esa escena.</p>
+      
+      <p><strong>En resumen:</strong> el caso de Federico Zulu es un ejemplo claro de cómo muchas personas en redes sociales comparten cosas que no tienen nada que ver con su vida real. Compartió un filtro de TikTok sobre Free Fire <strong>sin nunca haber jugado el juego</strong>. Eso es todo.</p>
+    `,
     star: true,
     files: []
   }
@@ -249,7 +347,7 @@ function getLista(){
 function render(){
   contenido.innerHTML = "";
   let l = getLista();
-  emails.innerHTML = l.map((e,i) => `
+  emailsContainer.innerHTML = l.map((e,i) => `
     <div class="email" onclick="ver(${i})">
       <input type="checkbox">
       <span class="star" onclick="event.stopPropagation();toggleStar(${i})">${e.star ? "★" : "☆"}</span>
@@ -262,11 +360,11 @@ function render(){
 
 function ver(i){
   let e = getLista()[i];
-  emails.innerHTML = "";
+  emailsContainer.innerHTML = "";
   contenido.innerHTML = `
     <div class="back" onclick="render()">← Volver</div>
     <h3>${e.subject}</h3>
-    <p>${e.content}</p>
+    <div>${e.content}</div>
   `;
 }
 
@@ -282,7 +380,7 @@ function buscar(t){
     e.sender.toLowerCase().includes(t) || 
     e.subject.toLowerCase().includes(t)
   );
-  emails.innerHTML = l.map((e,i) => `
+  emailsContainer.innerHTML = l.map((e,i) => `
     <div class="email" onclick="ver(${i})">
       <div class="sender">${e.sender}</div>
       <div class="subject">${e.subject}</div>
@@ -297,7 +395,7 @@ function irInbox(){ vista = "inbox"; filtroPersona = null; render(); }
 function togglePeople(){
   let p = document.getElementById("people");
   let a = document.getElementById("arrow");
-  if(p.style.display === "none"){
+  if(p.style.display === "none" || p.style.display === ""){
     p.style.display = "block";
     a.style.transform = "rotate(0deg)";
   } else {
@@ -307,7 +405,9 @@ function togglePeople(){
 }
 
 function cerrar(){
-  document.getElementById("modal").style.display = "none";
+  const modal = document.getElementById("modal");
+  modal.style.opacity = "0";
+  setTimeout(() => { modal.style.display = "none"; }, 300);
 }
 
 render();
