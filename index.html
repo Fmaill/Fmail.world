@@ -19,9 +19,6 @@
   --shadow:0 10px 30px rgba(26,39,68,.08);
   --shadow-strong:0 24px 60px rgba(26,39,68,.18);
   --danger:#d93025;
-  --radius-xl:28px;
-  --radius-lg:22px;
-  --radius-md:16px;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 
@@ -55,11 +52,9 @@ body{
     color .45s var(--ease);
 }
 
-button,input{
-  font:inherit;
-}
+button,input{font:inherit}
 
-/* Entrance */
+/* Entrada */
 #intro-screen{
   position:fixed;
   inset:0;
@@ -91,9 +86,7 @@ button,input{
     box-shadow .45s var(--ease);
 }
 
-.intro-box:hover{
-  transform:translateY(-2px);
-}
+.intro-box:hover{ transform:translateY(-2px); }
 
 .intro-box h1{
   margin:0 0 12px;
@@ -177,9 +170,7 @@ button,input{
   font-size:16px;
 }
 
-.shake{
-  animation:shake .32s linear;
-}
+.shake{ animation:shake .32s linear; }
 
 @keyframes shake{
   0%,100%{transform:translateX(0)}
@@ -209,7 +200,7 @@ button,input{
   to{opacity:1; transform:scale(1)}
 }
 
-/* Modals */
+/* Modales */
 .modal{
   position:fixed;
   inset:0;
@@ -420,9 +411,7 @@ body.dark .count{
   font-size:15px;
   color:var(--text);
 }
-.search-box input::placeholder{
-  color:var(--muted);
-}
+.search-box input::placeholder{ color:var(--muted); }
 
 .list-wrap{
   flex:1;
@@ -472,9 +461,7 @@ body.dark .count{
   background:var(--hover);
   transform:translateY(-1px);
 }
-.email:last-child{
-  border-bottom:none;
-}
+.email:last-child{ border-bottom:none; }
 
 .email input[type="checkbox"]{
   accent-color:var(--accent);
@@ -489,9 +476,7 @@ body.dark .count{
   color:#f4b400;
   transition:transform .2s var(--ease), opacity .2s var(--ease);
 }
-.star:hover{
-  transform:scale(1.16) rotate(-8deg);
-}
+.star:hover{ transform:scale(1.16) rotate(-8deg); }
 
 .sender{
   font-weight:600;
@@ -517,9 +502,7 @@ body.dark .count{
   white-space:nowrap;
   transition:transform .2s var(--ease);
 }
-.email:hover .badge{
-  transform:scale(1.04);
-}
+.email:hover .badge{ transform:scale(1.04); }
 
 .empty{
   padding:40px 24px;
@@ -613,7 +596,6 @@ body.dark .count{
   pointer-events:none;
   transition:transform .45s var(--ease), filter .45s var(--ease);
 }
-
 .image-card:hover img{
   transform:scale(1.03);
   filter:brightness(1.04);
@@ -688,9 +670,7 @@ body.dark .count{
 }
 
 /* Warning modal */
-#image-warning-modal .box{
-  max-width:620px;
-}
+#image-warning-modal .box{ max-width:620px; }
 
 .warning-list{
   margin:12px 0 0;
@@ -819,21 +799,13 @@ body.dark .count{
   .count{
     display:none;
   }
-  .item, .compose{
-    justify-content:center;
-  }
-  .email{
-    grid-template-columns:28px 28px 120px 1fr;
-  }
-  .badge{
-    display:none;
-  }
+  .item, .compose{ justify-content:center; }
+  .email{ grid-template-columns:28px 28px 120px 1fr; }
+  .badge{ display:none; }
 }
 
 @media (max-width:640px){
-  body{
-    flex-direction:column;
-  }
+  body{ flex-direction:column; }
   .sidebar{
     width:100%;
     height:auto;
@@ -845,9 +817,7 @@ body.dark .count{
     gap:8px;
     padding:10px;
   }
-  .brand{
-    display:none;
-  }
+  .brand{ display:none; }
   .compose{
     margin:0;
     flex-shrink:0;
@@ -856,9 +826,7 @@ body.dark .count{
     margin:0;
     flex-shrink:0;
   }
-  .main{
-    height:auto;
-  }
+  .main{ height:auto; }
   .email{
     grid-template-columns:24px 24px 90px 1fr;
     gap:8px;
@@ -1024,12 +992,18 @@ const emailsContainer = document.getElementById("emails");
 const contenido = document.getElementById("contenido");
 
 /*
-  PARA GITHUB PAGES:
-  deja index.html y las imágenes en la misma carpeta del repo publicado.
-  Ejemplo:
-  - index.html
-  - fedezulu1.png
-  - FEDEZULU.png
+  IMPORTANTE:
+  Deja el HTML y todas estas imágenes en la misma carpeta.
+  Los nombres deben quedar EXACTAMENTE así:
+
+  c82e96ea-5ec5-4a65-bf7a-7b72cd8f0b10.png
+  Captura de pantalla 2026-04-07 a la(s) 6.05.45 p.m..png
+  Captura de pantalla 2026-04-07 a la(s) 6.07.03 p.m..png
+  Captura de pantalla 2026-04-07 a la(s) 6.11.15 p.m..png
+  Captura de pantalla 2026-04-07 a la(s) 6.14.23 p.m..png
+  Captura de pantalla 2026-04-07 a la(s) 6.23.57 p.m..png
+  FEDEZULU.png
+  fedezulu1.png
 */
 
 const EMAILS = [
@@ -1091,12 +1065,36 @@ const EMAILS = [
     files: [],
     images: [
       {
-        src: "./fedezulu1.png",
-        alt: "Captura de conversación"
+        src: "./c82e96ea-5ec5-4a65-bf7a-7b72cd8f0b10.png",
+        alt: "Captura 1"
+      },
+      {
+        src: "./Captura de pantalla 2026-04-07 a la(s) 6.05.45 p.m..png",
+        alt: "Captura 2"
+      },
+      {
+        src: "./Captura de pantalla 2026-04-07 a la(s) 6.07.03 p.m..png",
+        alt: "Captura 3"
+      },
+      {
+        src: "./Captura de pantalla 2026-04-07 a la(s) 6.11.15 p.m..png",
+        alt: "Captura 4"
+      },
+      {
+        src: "./Captura de pantalla 2026-04-07 a la(s) 6.14.23 p.m..png",
+        alt: "Captura 5"
+      },
+      {
+        src: "./Captura de pantalla 2026-04-07 a la(s) 6.23.57 p.m..png",
+        alt: "Captura 6"
       },
       {
         src: "./FEDEZULU.png",
-        alt: "Foto en primer plano"
+        alt: "Captura 7"
+      },
+      {
+        src: "./fedezulu1.png",
+        alt: "Captura 8"
       }
     ]
   }
@@ -1216,7 +1214,7 @@ function renderImages(images){
             <div class="image-watermark">Solo demo · No distribuir</div>
             <div class="image-missing" style="display:none;">
               No se pudo cargar la imagen.<br>
-              Verifica que el archivo exista junto al HTML o en GitHub Pages.
+              Verifica que el archivo exista junto al HTML y con el nombre exacto.
             </div>
             <div class="image-warning">
               Si una persona decide fotografiar, capturar o compartir esta imagen, lo hace bajo su exclusiva responsabilidad.
